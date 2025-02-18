@@ -8,6 +8,7 @@ class Person {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private val id: Int? = null
 
     @Column(name = "name", nullable = false, length = 70)
@@ -16,12 +17,42 @@ class Person {
     @Column(name = "document", nullable = false, length = 20)
     private var document: String = ""
 
+    @ManyToOne
+    @JoinColumn(name = "id_person_type", referencedColumnName = "id")
+    private var personType: PersonType = PersonType()
+
+    @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
+    private var contact: Contact = Contact()
+
+    @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
+    private var client: Client = Client()
+
 
     fun getId(): Int? = this.id
 
     fun getName(): String = this.name
     fun setName(name: String) {
         this.name = name
+    }
+
+    fun getDocument(): String = this.document
+    fun setDocument(document: String) {
+        this.document = document
+    }
+
+    fun getPersonType(): PersonType = this.personType
+    fun setPersonType(personType: PersonType) {
+        this.personType = personType
+    }
+
+    fun getContact(): Contact = this.contact
+    fun setContact(contact: Contact) {
+        this.contact = contact
+    }
+
+    fun getClient(): Client = this.client
+    fun setClient(client: Client) {
+        this.client = client
     }
 
     override fun equals(other: Any?): Boolean {

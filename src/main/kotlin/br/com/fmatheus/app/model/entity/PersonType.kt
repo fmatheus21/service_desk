@@ -8,6 +8,7 @@ class PersonType {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private val id: Int? = null
 
     @Column(name = "name", nullable = false, length = 70)
