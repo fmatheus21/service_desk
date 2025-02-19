@@ -22,4 +22,36 @@ class TicketDiscussion {
     @ManyToOne
     @JoinColumn(name = "id_ticket", referencedColumnName = "id", nullable = false)
     private var ticket: Ticket = Ticket()
+
+    fun getId(): UUID? = this.id
+
+    fun getCreatedDate(): LocalDateTime = this.createdDate
+    fun setCreatedDate(createdDate: LocalDateTime) {
+        this.createdDate = createdDate
+    }
+
+    fun getDiscussion(): String = this.discussion
+    fun setDiscussion(discussion: String) {
+        this.discussion = discussion
+    }
+
+    fun getTicket(): Ticket = this.ticket
+    fun setTicket(ticket: Ticket) {
+        this.ticket = ticket
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is TicketDiscussion) return false
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
+
+
 }
