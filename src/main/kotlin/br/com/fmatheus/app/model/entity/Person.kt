@@ -27,6 +27,9 @@ class Person {
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
     private var client: Client = Client()
 
+    @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
+    private var user: User = User()
+
 
     fun getId(): Int? = this.id
 
@@ -53,6 +56,11 @@ class Person {
     fun getClient(): Client = this.client
     fun setClient(client: Client) {
         this.client = client
+    }
+
+    fun getUser(): User = this.user
+    fun setUser(user: User) {
+        this.user = user
     }
 
     override fun equals(other: Any?): Boolean {
