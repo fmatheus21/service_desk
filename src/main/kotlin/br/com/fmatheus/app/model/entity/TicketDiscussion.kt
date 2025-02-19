@@ -18,4 +18,8 @@ class TicketDiscussion {
 
     @Column(name = "discussion", nullable = false, columnDefinition = "MEDIUMTEXT")
     private var discussion: String = ""
+
+    @ManyToOne
+    @JoinColumn(name = "id_ticket", referencedColumnName = "id", nullable = false)
+    private var ticket: Ticket = Ticket()
 }
