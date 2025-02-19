@@ -29,6 +29,10 @@ class Ticket {
     private var client: Client = Client()
 
     @ManyToOne
+    @JoinColumn(name = "id_ticket_status", referencedColumnName = "id", nullable = false)
+    private var ticketStatus: TicketStatus = TicketStatus()
+
+    @ManyToOne
     @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = true)
     private var owner: User? = null
 
@@ -56,6 +60,11 @@ class Ticket {
     fun getClient(): Client = this.client
     fun setClient(client: Client) {
         this.client = client
+    }
+
+    fun getTicketStatus(): TicketStatus = this.ticketStatus
+    fun setTicketStatus(ticketStatus: TicketStatus) {
+        this.ticketStatus = ticketStatus
     }
 
     fun getOwner(): User? = this.owner
