@@ -1,25 +1,20 @@
 package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotBlank
 
 @Entity
 @Table(name = "ticket_status")
-class TicketStatus {
-
+class TicketStatus(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private val id: Int? = null
+    private val id: Int?,
 
+    @NotBlank
     @Column(name = "name", length = 20, nullable = false)
-    private var name: String = ""
-
-    fun getId(): Int? = this.id
-
-    fun getName(): String = this.name
-    fun setName(name: String) {
-        this.name = name
-    }
+    private var name: String
+) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -33,6 +28,4 @@ class TicketStatus {
     override fun hashCode(): Int {
         return id ?: 0
     }
-
-
 }

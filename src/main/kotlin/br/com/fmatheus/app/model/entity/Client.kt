@@ -1,43 +1,29 @@
 package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
+import jakarta.validation.constraints.NotNull
 import java.time.LocalDateTime
 
 @Entity
 @Table(name = "client")
-class Client {
-
+class Client(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private val id: Int? = null
+    private val id: Int?,
 
+    @NotNull
     @Column(name = "created_date", nullable = false)
-    private var createdDate: LocalDateTime = LocalDateTime.now()
+    private var createdDate: LocalDateTime = LocalDateTime.now(),
 
     @OneToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id")
-    private var person: Person = Person()
+    private var person: Person,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "owner", fetch = FetchType.LAZY)
-    private var tickets: List<Ticket> = ArrayList()
+    private var tickets: List<Ticket>
+) {
 
-    fun getId(): Int? = this.id
-
-    fun getCreatedDate(): LocalDateTime = this.createdDate
-    fun setCreatedDate(createdDate: LocalDateTime) {
-        this.createdDate = createdDate
-    }
-
-    fun getPerson(): Person = this.person
-    fun setPerson(person: Person) {
-        this.person = person
-    }
-
-    fun getTickets(): List<Ticket> = this.tickets
-    fun setTickets(tickets: List<Ticket>) {
-        this.tickets = tickets
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
