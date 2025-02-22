@@ -40,7 +40,7 @@ class Ticket(
     private var owner: User? = null,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "ticket", orphanRemoval = true, fetch = FetchType.LAZY)
-    private var ticketDiscussions: List<TicketDiscussion>
+    private var ticketDiscussions: MutableList<TicketDiscussion> = mutableListOf()
 ) {
 
     override fun equals(other: Any?): Boolean {

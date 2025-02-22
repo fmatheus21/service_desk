@@ -12,7 +12,7 @@ class PersonType(
     private val id: Int,
 
     @NotBlank
-    @Column(name = "name", nullable = false, length = 70)
+    @Column(name = "name", nullable = false, length = 20)
     private var name: String
 ) {
 

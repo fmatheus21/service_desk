@@ -12,7 +12,7 @@ class Person(
     private val id: Int,
 
     @NotBlank
-    @Column(name = "name", nullable = false, length = 70)
+    @Column(name = "name", nullable = false, length = 150)
     private var name: String,
 
     @NotBlank
