@@ -34,6 +34,8 @@ spring:
     default-property-inclusion: non_null
     serialization:
       fail_on_empty_beans: false
+    deserialization:
+      fail_on_unknown_properties: false
   flyway:
     password: ${SPRING_DATASOURCE_PASSWORD}
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/kotlin_tickets?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC}
