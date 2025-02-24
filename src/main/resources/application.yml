@@ -20,6 +20,12 @@ spring:
       sort:
         sort-parameter: sort
   datasource:
+    hikari:
+      minimum-idle: 2
+      maximum-pool-size: 10
+      idle-timeout: 10000
+      max-lifetime: 1800000
+      connection-timeout: 30000
     driver-class-name: com.mysql.cj.jdbc.Driver
     password: ${SPRING_DATASOURCE_PASSWORD}
     url: jdbc:mysql://localhost:3306/kotlin_tickets?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
@@ -30,7 +36,7 @@ spring:
       fail_on_empty_beans: false
   flyway:
     password: ${SPRING_DATASOURCE_PASSWORD}
-    url: jdbc:mysql://localhost:3306/kotlin_tickets?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/kotlin_tickets?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC}
     user: ${SPRING_DATASOURCE_USERNAME}
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect

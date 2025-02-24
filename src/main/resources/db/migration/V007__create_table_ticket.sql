@@ -2,7 +2,7 @@ CREATE TABLE ticket (
   id binary(16) NOT NULL,
   id_client binary(16) NOT NULL,
   id_ticket_status int NOT NULL,
-  id_user binary(16) NOT NULL COMMENT 'Usuário que está atendendo o chamado.',
+  id_user binary(16) COMMENT 'Usuário que está atendendo o chamado.',
   title varchar(100) NOT NULL,
   problem_description mediumtext NOT NULL,
   created_date datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

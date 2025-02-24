@@ -6,24 +6,31 @@ import jakarta.validation.constraints.NotBlank
 @Entity
 @Table(name = "contact")
 class Contact(
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private val id: Int,
+    val id: Int?,
 
     @NotBlank
     @Column(name = "phone", nullable = false, length = 20)
-    private var phone: String,
+    var phone: String,
 
     @NotBlank
     @Column(name = "email", nullable = false, length = 200)
-    private var email: String,
+    var email: String,
 
     @OneToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id", nullable = false)
-    private var person: Person
+    var person: Person
 ) {
 
+    constructor(id: Int?) : this(
+        id = id,
+        phone = "",
+        email = "",
+        person = Person(null)
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -35,6 +42,6 @@ class Contact(
     }
 
     override fun hashCode(): Int {
-        return id
+        return id ?: 0
     }
 }

@@ -3,35 +3,48 @@ package br.com.fmatheus.app.model.entity
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 
+
 @Entity
 @Table(name = "person")
 class Person(
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private val id: Int,
+    val id: Int?,
 
     @NotBlank
     @Column(name = "name", nullable = false, length = 150)
-    private var name: String,
+    var name: String,
 
     @NotBlank
     @Column(name = "document", nullable = false, length = 20)
-    private var document: String,
+    var document: String,
 
     @ManyToOne
     @JoinColumn(name = "id_person_type", referencedColumnName = "id")
-    private var personType: PersonType,
+    var personType: PersonType,
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
-    private var contact: Contact,
+    var contact: Contact?,
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
-    private var client: Client,
+    var client: Client?,
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
-    private var user: User
+    var user: User?
 ) {
+
+    constructor(id: Int?) : this(
+        id = id,
+        name = "",
+        document = "",
+        personType = PersonType(null),
+        contact = null,
+        client = null,
+        user = null
+    )
+
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -43,6 +56,6 @@ class Person(
     }
 
     override fun hashCode(): Int {
-        return id
+        return id ?: 0
     }
 }

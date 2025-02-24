@@ -9,24 +9,31 @@ import java.util.*
 @Entity
 @Table(name = "ticket_discussion")
 class TicketDiscussion(
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private val id: UUID?,
+    val id: UUID?,
 
     @NotNull
     @Column(name = "created_date", nullable = false)
-    private var createdDate: LocalDateTime = LocalDateTime.now(),
+    var createdDate: LocalDateTime,
 
     @NotBlank
     @Column(name = "discussion", nullable = false, columnDefinition = "MEDIUMTEXT")
-    private var discussion: String,
+    var discussion: String,
 
     @ManyToOne
     @JoinColumn(name = "id_ticket", referencedColumnName = "id", nullable = false)
-    private var ticket: Ticket
+    var ticket: Ticket
 ) {
 
+    constructor(id: UUID?) : this(
+        id = id,
+        createdDate = LocalDateTime.now(),
+        discussion = "",
+        ticket = Ticket(null)
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

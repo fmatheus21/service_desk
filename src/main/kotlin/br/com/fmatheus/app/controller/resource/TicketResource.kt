@@ -1,10 +1,10 @@
 package br.com.fmatheus.app.controller.resource
 
 import br.com.fmatheus.app.controller.dto.request.TicketRequest
+import br.com.fmatheus.app.controller.dto.response.TicketResponse
 import br.com.fmatheus.app.controller.facade.TicketFacade
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.*
 import kotlin.reflect.full.memberProperties
 
 @RestController
@@ -18,5 +18,10 @@ class TicketResource(private val facade: TicketFacade) {
             prop.name
         }
         return "Hello World"
+    }
+
+    @PostMapping
+    fun create(@Valid @RequestBody request: TicketRequest): TicketResponse {
+        return this.facade.create(request)
     }
 }

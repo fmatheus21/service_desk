@@ -3,28 +3,36 @@ package br.com.fmatheus.app.model.entity
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
 import java.time.LocalDateTime
-import java.util.UUID
+import java.util.*
 
 @Entity
 @Table(name = "client")
 class Client(
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private val id: UUID,
+    var id: UUID?,
 
     @NotNull
     @Column(name = "created_date", nullable = false)
-    private var createdDate: LocalDateTime = LocalDateTime.now(),
+    var createdDate: LocalDateTime,
 
     @OneToOne
-    @JoinColumn(name = "id_person", referencedColumnName = "id")
-    private var person: Person,
+    @JoinColumn(name = "id_person", referencedColumnName = "id", nullable = false)
+    var person: Person,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "client", fetch = FetchType.LAZY)
-    private var tickets: MutableList<Ticket> = mutableListOf()
+    var tickets: MutableList<Ticket>
+
 ) {
 
+    constructor(id: UUID?) : this(
+        id = id,
+        createdDate = LocalDateTime.now(),
+        person = Person(null),
+        tickets = mutableListOf()
+    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -36,6 +44,6 @@ class Client(
     }
 
     override fun hashCode(): Int {
-        return id.hashCode()
+        return id?.hashCode() ?: 0
     }
 }
