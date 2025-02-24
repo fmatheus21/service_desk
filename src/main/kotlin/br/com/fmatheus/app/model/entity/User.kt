@@ -29,13 +29,6 @@ class User(
 
 ) {
 
-    constructor(id: UUID?) : this(
-        id = id,
-        createdDate = LocalDateTime.now(),
-        active = true,
-        person = Person(null)
-    )
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is User) return false

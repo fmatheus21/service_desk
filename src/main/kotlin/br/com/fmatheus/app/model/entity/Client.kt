@@ -27,13 +27,6 @@ class Client(
 
 ) {
 
-    constructor(id: UUID?) : this(
-        id = id,
-        createdDate = LocalDateTime.now(),
-        person = Person(null),
-        tickets = mutableListOf()
-    )
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is Client) return false

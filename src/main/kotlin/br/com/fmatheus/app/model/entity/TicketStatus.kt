@@ -17,11 +17,6 @@ class TicketStatus(
     var name: String,
 ) {
 
-    constructor(id: Int?) : this(
-        id = id,
-        name = ""
-    )
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TicketStatus) return false

@@ -3,25 +3,32 @@ package br.com.fmatheus.app.controller.converter.impl
 import br.com.fmatheus.app.controller.converter.TicketConverter
 import br.com.fmatheus.app.controller.dto.request.TicketRequest
 import br.com.fmatheus.app.controller.dto.response.TicketResponse
-import br.com.fmatheus.app.model.entity.Client
 import br.com.fmatheus.app.model.entity.Ticket
-import br.com.fmatheus.app.model.entity.TicketStatus
+import br.com.fmatheus.app.model.service.ClientService
+import br.com.fmatheus.app.model.service.TicketStatusService
+import jakarta.persistence.EntityNotFoundException
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
 @Component
-class TicketConverterImpl : TicketConverter {
+class TicketConverterImpl(
+    private val clientService: ClientService,
+    private val ticketStatusService: TicketStatusService
+) : TicketConverter {
     override fun converterToEntity(s: TicketRequest): Ticket {
+
+        val client = this.clientService.findById(s.client.id).orElseThrow { EntityNotFoundException("Cliente não encontrado") }
+        val ticketStatus = this.ticketStatusService.findById(1).orElseThrow { EntityNotFoundException("Status não encontrado") }
 
         val ticket = Ticket(
             id = null,
             title = s.title,
             problemDescription = s.problemDescription,
             createdDate = LocalDateTime.now(),
-            client = Client(s.client.id),
-            ticketStatus = TicketStatus(1),
+            client = client,
+            ticketStatus = ticketStatus,
             owner = null,
-            ticketDiscussions = arrayListOf()
+            ticketDiscussions = null
         )
 
         return ticket
@@ -31,8 +38,8 @@ class TicketConverterImpl : TicketConverter {
     override fun converterToResponse(t: Ticket): TicketResponse {
 
         val person = t.client.person
-        val client = person.client
-        val contact = person.contact
+        val client = t.client
+        val contact = t.client.person.contact
 
         return TicketResponse(
             title = t.title,

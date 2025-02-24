@@ -1,11 +1,11 @@
 package br.com.fmatheus.app.model.service
 
-import java.util.Optional
+import java.util.*
 
 interface GenericService<T, ID> {
-    fun findAll(): Collection<T>?
+    fun findAll(): Collection<T>
 
-    fun findById(id: ID): Optional<T>?
+    fun findById(id: ID): Optional<T>
 
     fun save(t: T): T
 

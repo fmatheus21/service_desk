@@ -10,12 +10,11 @@ import java.util.*
 @Service
 class TicketServiceImpl(private val repository: TicketRepository) : TicketService {
 
-
-    override fun findAll(): Collection<Ticket>? {
+    override fun findAll(): Collection<Ticket> {
         return this.repository.findAll()
     }
 
-    override fun findById(id: UUID): Optional<Ticket>? {
+    override fun findById(id: UUID): Optional<Ticket> {
         return this.repository.findById(id)
     }
 

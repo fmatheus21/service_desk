@@ -9,11 +9,11 @@ import java.util.*
 @Service
 class ClientServiceImpl(private val repository: ClientRepository) : ClientService {
 
-    override fun findAll(): Collection<Client>? {
+    override fun findAll(): Collection<Client> {
         throw UnsupportedOperationException()
     }
 
-    override fun findById(id: UUID): Optional<Client>? {
+    override fun findById(id: UUID): Optional<Client> {
         return this.repository.findById(id)
     }
 

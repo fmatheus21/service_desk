@@ -28,13 +28,6 @@ class TicketDiscussion(
     var ticket: Ticket
 ) {
 
-    constructor(id: UUID?) : this(
-        id = id,
-        createdDate = LocalDateTime.now(),
-        discussion = "",
-        ticket = Ticket(null)
-    )
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other !is TicketDiscussion) return false

@@ -25,12 +25,6 @@ class Contact(
     var person: Person
 ) {
 
-    constructor(id: Int?) : this(
-        id = id,
-        phone = "",
-        email = "",
-        person = Person(null)
-    )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

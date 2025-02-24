@@ -41,19 +41,9 @@ class Ticket(
     var owner: User?,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "ticket", orphanRemoval = true, fetch = FetchType.LAZY)
-    var ticketDiscussions: MutableList<TicketDiscussion>
-) {
+    var ticketDiscussions: MutableList<TicketDiscussion>?
 
-    constructor(id: UUID?) : this(
-        id = id,
-        title = "",
-        problemDescription = "",
-        createdDate = LocalDateTime.now(),
-        client = Client(null),
-        ticketStatus = TicketStatus(null),
-        owner = User(null),
-        ticketDiscussions = mutableListOf()
-    )
+) {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

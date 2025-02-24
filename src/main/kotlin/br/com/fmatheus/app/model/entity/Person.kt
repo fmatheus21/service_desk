@@ -26,25 +26,14 @@ class Person(
     var personType: PersonType,
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
-    var contact: Contact?,
+    var contact: Contact,
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
-    var client: Client?,
+    var client: Client,
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
     var user: User?
 ) {
-
-    constructor(id: Int?) : this(
-        id = id,
-        name = "",
-        document = "",
-        personType = PersonType(null),
-        contact = null,
-        client = null,
-        user = null
-    )
-
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
