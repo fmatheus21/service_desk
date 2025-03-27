@@ -2,6 +2,7 @@ package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
+import java.io.Serializable
 
 
 @Entity
@@ -33,7 +34,7 @@ class Person(
 
     @OneToOne(cascade = [CascadeType.ALL], mappedBy = "person", orphanRemoval = true)
     var user: User?
-) {
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

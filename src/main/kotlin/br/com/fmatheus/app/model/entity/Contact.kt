@@ -2,6 +2,7 @@ package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
+import java.io.Serializable
 
 @Entity
 @Table(name = "contact")
@@ -23,7 +24,7 @@ class Contact(
     @OneToOne
     @JoinColumn(name = "id_person", referencedColumnName = "id", nullable = false)
     var person: Person
-) {
+) : Serializable {
 
 
     override fun equals(other: Any?): Boolean {

@@ -12,7 +12,7 @@ import kotlin.reflect.full.memberProperties
 @RequestMapping("/tickets")
 class TicketResource(private val facade: TicketFacade) {
 
-    @GetMapping
+    @GetMapping("/hello-world")
     fun helloWorld(): String {
         val ticket = TicketRequest::class.memberProperties
         for (prop in ticket) {
@@ -25,5 +25,11 @@ class TicketResource(private val facade: TicketFacade) {
     @PostMapping
     fun create(@RequestBody @Valid request: TicketRequest): TicketResponse {
         return this.facade.create(request)
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping
+    fun findAll(): Collection<TicketResponse> {
+        return this.facade.findAll()
     }
 }

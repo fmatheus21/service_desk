@@ -2,6 +2,7 @@ package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
+import java.io.Serializable
 
 @Entity
 @Table(name = "ticket_status")
@@ -15,7 +16,7 @@ class TicketStatus(
     @NotBlank
     @Column(name = "name", length = 20, nullable = false)
     var name: String,
-) {
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

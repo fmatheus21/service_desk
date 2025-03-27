@@ -2,6 +2,7 @@ package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
+import java.io.Serializable
 import java.time.LocalDateTime
 import java.util.*
 
@@ -27,7 +28,7 @@ class User(
     @JoinColumn(name = "id_person", referencedColumnName = "id", nullable = false)
     var person: Person
 
-) {
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

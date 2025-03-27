@@ -4,9 +4,14 @@ logging:
 server:
   port: 9000
   servlet:
-    context-path: ${CONTEXT_PATH:/api/v1}
+    context-path: /api/v1
 
 spring:
+  cache:
+    type: caffeine
+    cache-names: ticketStatus
+    caffeine:
+      spec: maximumSize=100, expireAfterWrite=60m #Permite que o cache mantenha 100 entradas e expire após 60 minutos.
   application:
     name: kotlin_api_rest
   data:

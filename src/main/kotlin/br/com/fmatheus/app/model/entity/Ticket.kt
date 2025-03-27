@@ -3,6 +3,7 @@ package br.com.fmatheus.app.model.entity
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
+import java.io.Serializable
 import java.time.LocalDateTime
 import java.util.*
 
@@ -43,7 +44,7 @@ class Ticket(
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "ticket", orphanRemoval = true, fetch = FetchType.LAZY)
     var ticketDiscussions: MutableList<TicketDiscussion>?
 
-) {
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

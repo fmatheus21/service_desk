@@ -17,4 +17,9 @@ data class TicketFacade(
         val commit = this.ticketService.save(ticket)
         return ticketConverter.converterToResponse(commit)
     }
+
+    fun findAll(): Collection<TicketResponse> {
+        val result = this.ticketService.findAll()
+        return result.map { map -> this.ticketConverter.converterToResponse(map) }
+    }
 }

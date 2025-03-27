@@ -3,6 +3,7 @@ package br.com.fmatheus.app.model.service.impl
 import br.com.fmatheus.app.model.entity.TicketStatus
 import br.com.fmatheus.app.model.repository.TicketStatusRepository
 import br.com.fmatheus.app.model.service.TicketStatusService
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -14,6 +15,7 @@ class TicketStatusServiceImpl(private val repository: TicketStatusRepository) : 
         return this.repository.findAll()
     }
 
+    @Cacheable("ticketStatus")
     override fun findById(id: Int): Optional<TicketStatus> {
         return this.repository.findById(id)
     }

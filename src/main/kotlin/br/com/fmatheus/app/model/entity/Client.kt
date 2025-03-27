@@ -2,6 +2,7 @@ package br.com.fmatheus.app.model.entity
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.NotNull
+import java.io.Serializable
 import java.time.LocalDateTime
 import java.util.*
 
@@ -25,7 +26,7 @@ class Client(
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "client", fetch = FetchType.LAZY)
     var tickets: MutableList<Ticket>
 
-) {
+) : Serializable {
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
