@@ -25,13 +25,13 @@ class TicketStatusServiceImpl(private val repository: TicketStatusRepository) : 
         return this.repository.findById(id)
     }
 
-    @CacheEvict(value = [CACHE_NAME], allEntries = true)    // Se este método for chamado, os dados de cache serão removidos.
+    @CacheEvict(value = [CACHE_NAME], allEntries = true)    // Se este método for chamado, o cache será invalidado.
     override fun save(t: TicketStatus): TicketStatus {
         return this.repository.save(t)
     }
 
 
-    @CacheEvict(value = [CACHE_NAME], allEntries = true)    // Se este método for chamado, os dados de cache serão removidos.
+    @CacheEvict(value = [CACHE_NAME], allEntries = true)    // Se este método for chamado, o cache será invalidado.
     override fun deleteById(id: Int) {
         this.repository.deleteById(id)
     }

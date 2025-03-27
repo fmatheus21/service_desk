@@ -5,6 +5,7 @@ import br.com.fmatheus.app.controller.dto.response.TicketResponse
 import br.com.fmatheus.app.controller.facade.TicketFacade
 import jakarta.validation.Valid
 import org.springframework.http.HttpStatus
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.*
 import kotlin.reflect.full.memberProperties
 
@@ -27,6 +28,7 @@ class TicketResource(private val facade: TicketFacade) {
         return this.facade.create(request)
     }
 
+    @Transactional(readOnly = true)
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
     fun findAll(): Collection<TicketResponse> {
