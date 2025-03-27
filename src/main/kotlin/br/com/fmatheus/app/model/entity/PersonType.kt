@@ -6,18 +6,23 @@ import java.io.Serializable
 
 @Entity
 @Table(name = "person_type")
-class PersonType(
+class PersonType : Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    var id: Int?,
+    private var id: Int? = 0
 
     @NotBlank
     @Column(name = "name", nullable = false, length = 20)
-    var name: String
+    private var name: String = ""
 
-) : Serializable {
+    fun getId(): Int? = this.id
+
+    fun getName(): String = this.name
+    fun setName(name: String) {
+        this.name = name
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

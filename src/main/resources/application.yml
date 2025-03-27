@@ -5,15 +5,14 @@ server:
   port: 9000
   servlet:
     context-path: /api/v1
-
 spring:
-  cache:
-    type: caffeine
-    cache-names: ticketStatus
-    caffeine:
-      spec: maximumSize=100, expireAfterWrite=60m #Permite que o cache mantenha 100 entradas e expire após 60 minutos.
   application:
     name: kotlin_api_rest
+  cache:
+    cache-names: ticketStatus
+    caffeine:
+      spec: maximumSize=100, expireAfterWrite=60m
+    type: caffeine
   data:
     web:
       pageable:
@@ -25,26 +24,26 @@ spring:
       sort:
         sort-parameter: sort
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
-      minimum-idle: 2
-      maximum-pool-size: 10
+      connection-timeout: 30000
       idle-timeout: 10000
       max-lifetime: 1800000
-      connection-timeout: 30000
-    driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 10
+      minimum-idle: 2
     password: ${SPRING_DATASOURCE_PASSWORD}
     url: jdbc:mysql://localhost:3306/kotlin_tickets?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC
     username: ${SPRING_DATASOURCE_USERNAME}
-  jackson:
-    default-property-inclusion: non_null
-    serialization:
-      fail_on_empty_beans: false
-    deserialization:
-      fail_on_unknown_properties: false
   flyway:
     password: ${SPRING_DATASOURCE_PASSWORD}
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/kotlin_tickets?createDatabaseIfNotExist=true&useTimezone=true&serverTimezone=UTC}
     user: ${SPRING_DATASOURCE_USERNAME}
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      fail_on_unknown_properties: false
+    serialization:
+      fail_on_empty_beans: false
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: ${JPA_SHOW_SQL:false}
