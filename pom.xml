@@ -10,9 +10,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>br.com.fmatheus</groupId>
-    <artifactId>kotlin_api_rest</artifactId>
+    <artifactId>service_desk</artifactId>
     <version>0.0.1</version>
-    <name>kotlin_api_rest</name>
+    <name>service_desk</name>
     <description>Base de estudos sobre Kotlin</description>
     <url/>
 
