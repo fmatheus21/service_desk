@@ -1,5 +1,6 @@
 package br.com.fmatheus.app.controller.resource
 
+import br.com.fmatheus.app.config.security.authorize.TicketReadAuthorize
 import br.com.fmatheus.app.controller.dto.request.TicketRequest
 import br.com.fmatheus.app.controller.dto.response.TicketResponse
 import br.com.fmatheus.app.controller.facade.TicketFacade
@@ -28,6 +29,7 @@ class TicketResource(private val facade: TicketFacade) {
         return this.facade.create(request)
     }
 
+    @TicketReadAuthorize
     @Transactional(readOnly = true)
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
