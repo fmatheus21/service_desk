@@ -3,7 +3,10 @@ package br.com.fmatheus.app.config.security
 import br.com.fmatheus.app.controller.util.logger
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.web.cors.CorsConfiguration
@@ -12,6 +15,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 
 @Configuration
+@EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 class SecurityConfig {
 
     private val logger = logger()
@@ -22,6 +27,11 @@ class SecurityConfig {
             "/v3/api-docs/**",
             "/actuator/*",
             "/swagger-ui/**"
+        )
+        private val TICKET_READ = arrayOf(
+            "service_desk/ticket_read",
+            "service_desk/all_authorize",
+            "client_credentials"
         )
     }
 
@@ -37,7 +47,8 @@ class SecurityConfig {
             .cors { it.configurationSource(corsConfigurationSource()) }  //Configura o CORS (Cross-Origin Resource Sharing) utilizando o método corsConfigurationSource(), que define as regras de compartilhamento de recursos entre origens.
             .authorizeHttpRequests {  //Configura a autorização de requisições HTTP:
                 it.requestMatchers(*AUTH_WHITELIST).permitAll()  //Permite o acesso irrestrito às URLs definidas na constante AUTH_WHITELIST (ex: Swagger, Actuator).
-                    .anyRequest().authenticated()  //Exige que todas as outras requisições sejam autenticadas.
+                    .requestMatchers(HttpMethod.GET, "/tickets").hasAnyAuthority(*TICKET_READ)
+                    .anyRequest().denyAll()  //Nega quaquer outra requisição.
             }
             .oauth2ResourceServer { oauth ->  //Configura o recurso de autenticação com OAuth2 usando JWT:
                 oauth.jwt { jwt ->

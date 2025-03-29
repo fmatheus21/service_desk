@@ -1,10 +1,17 @@
 logging:
   pattern:
     level: '%5p [${spring.properties.name:},%X{traceId:-},%X{spanId:-}]'
+
+
+  level:
+    org:
+      springframework:
+        security: DEBUG
 server:
   port: 9100
   servlet:
     context-path: /api/v1
+
 spring:
   application:
     name: kotlin_api_rest
