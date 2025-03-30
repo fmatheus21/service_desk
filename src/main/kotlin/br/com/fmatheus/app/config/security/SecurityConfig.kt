@@ -1,6 +1,7 @@
 package br.com.fmatheus.app.config.security
 
 import br.com.fmatheus.app.controller.util.logger
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -9,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.csrf.CsrfTokenRepository
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
@@ -21,6 +23,9 @@ class SecurityConfig {
 
     private val logger = logger()
     private val URL_TICKET = "/tickets"
+
+    @Autowired
+    private lateinit var csrfTokenRepository: CsrfTokenRepository
 
     companion object {
         private val AUTH_WHITELIST = arrayOf(
@@ -48,7 +53,7 @@ class SecurityConfig {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         logger.info("Iniciando Filter Chain")
         return http
-            .csrf { it.disable() }  //Desabilita a proteção contra CSRF (Cross-Site Request Forgery), o que pode ser necessário em APIs REST sem sessões de usuário.
+            .csrf { csrf -> csrf.csrfTokenRepository(this.csrfTokenRepository) }  //Habilita a proteção contra CSRF (Cross-Site Request Forgery), o que pode ser necessário em APIs REST sem sessões de usuário.
             .cors { it.configurationSource(corsConfigurationSource()) }  //Configura o CORS (Cross-Origin Resource Sharing) utilizando o método corsConfigurationSource(), que define as regras de compartilhamento de recursos entre origens.
             .authorizeHttpRequests {  //Configura a autorização de requisições HTTP:
                 it.requestMatchers(*AUTH_WHITELIST).permitAll()  //Permite o acesso irrestrito às URLs definidas na constante AUTH_WHITELIST (ex: Swagger, Actuator).
