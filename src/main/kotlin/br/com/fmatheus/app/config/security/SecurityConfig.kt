@@ -47,8 +47,8 @@ class SecurityConfig {
             .cors { it.configurationSource(corsConfigurationSource()) }  //Configura o CORS (Cross-Origin Resource Sharing) utilizando o método corsConfigurationSource(), que define as regras de compartilhamento de recursos entre origens.
             .authorizeHttpRequests {  //Configura a autorização de requisições HTTP:
                 it.requestMatchers(*AUTH_WHITELIST).permitAll()  //Permite o acesso irrestrito às URLs definidas na constante AUTH_WHITELIST (ex: Swagger, Actuator).
-                    .requestMatchers(HttpMethod.GET, "/tickets").hasAnyAuthority(*TICKET_READ)
-                    .anyRequest().denyAll()  //Nega quaquer outra requisição.
+                    .requestMatchers(HttpMethod.GET, "/tickets").hasAnyAuthority(*TICKET_READ)  //Permite requisições somente quem tiver este authority
+                    .anyRequest().denyAll()  //Nega qualquer outra requisição.
             }
             .oauth2ResourceServer { oauth ->  //Configura o recurso de autenticação com OAuth2 usando JWT:
                 oauth.jwt { jwt ->
