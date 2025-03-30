@@ -1,7 +1,7 @@
 package br.com.fmatheus.app.config.security
 
+import br.com.fmatheus.app.config.properties.CorsProperties
 import br.com.fmatheus.app.controller.util.logger
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -19,13 +19,13 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)
-class SecurityConfig {
+class SecurityConfig(
+    private val corsProperties: CorsProperties,
+    private val csrfTokenRepository: CsrfTokenRepository
+) {
 
     private val logger = logger()
     private val URL_TICKET = "/tickets"
-
-    @Autowired
-    private lateinit var csrfTokenRepository: CsrfTokenRepository
 
     companion object {
         private val AUTH_WHITELIST = arrayOf(
@@ -81,7 +81,7 @@ class SecurityConfig {
     private fun corsConfigurationSource(): CorsConfigurationSource {
         val config = CorsConfiguration().apply {
             allowedHeaders = listOf("Authorization", "Cache-Control", "Content-Type")
-            allowedOrigins = listOf("http://localhost:4200")
+            allowedOrigins = corsProperties.allowedOrigins
             allowedMethods = listOf("POST", "GET", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS")
             allowCredentials = true
             exposedHeaders = listOf("Authorization")

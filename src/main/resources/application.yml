@@ -60,3 +60,6 @@ spring:
         jwt:
           issuer-uri: ${JWT_ISSUER_URI:http://localhost:9000/api/v1}
           jwk-set-uri: ${JWT_JWK_URI:http://localhost:9000/api/v1/oauth2/jwks}
+
+cors:
+  allowed-origins: "http://localhost:4200,http://localhost:4100"
