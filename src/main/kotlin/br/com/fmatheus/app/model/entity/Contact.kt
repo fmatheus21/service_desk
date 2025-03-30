@@ -9,7 +9,7 @@ import java.io.Serializable
 class Contact(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     val id: Int?,
 

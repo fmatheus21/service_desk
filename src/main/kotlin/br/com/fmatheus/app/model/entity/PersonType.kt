@@ -9,7 +9,7 @@ import java.io.Serializable
 class PersonType : Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private var id: Int? = 0
 

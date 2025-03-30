@@ -9,7 +9,7 @@ import java.io.Serializable
 class TicketStatus(
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     var id: Int?,
 
