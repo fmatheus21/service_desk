@@ -20,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class SecurityConfig {
 
     private val logger = logger()
+    private val URL_TICKET = "/tickets"
 
     companion object {
         private val AUTH_WHITELIST = arrayOf(
@@ -32,6 +33,10 @@ class SecurityConfig {
             "service_desk/ticket_read",
             "service_desk/all_authorize",
             "client_credentials"
+        )
+        private val TICKET_CREATE = arrayOf(
+            "service_desk/ticket_create",
+            "service_desk/all_authorize"
         )
     }
 
@@ -47,7 +52,8 @@ class SecurityConfig {
             .cors { it.configurationSource(corsConfigurationSource()) }  //Configura o CORS (Cross-Origin Resource Sharing) utilizando o método corsConfigurationSource(), que define as regras de compartilhamento de recursos entre origens.
             .authorizeHttpRequests {  //Configura a autorização de requisições HTTP:
                 it.requestMatchers(*AUTH_WHITELIST).permitAll()  //Permite o acesso irrestrito às URLs definidas na constante AUTH_WHITELIST (ex: Swagger, Actuator).
-                    .requestMatchers(HttpMethod.GET, "/tickets").hasAnyAuthority(*TICKET_READ)  //Permite requisições somente quem tiver este authority
+                    .requestMatchers(HttpMethod.GET, URL_TICKET).hasAnyAuthority(*TICKET_READ)  //Permite requisições somente quem tiver este authority
+                    .requestMatchers(HttpMethod.POST, URL_TICKET).hasAnyAuthority(*TICKET_CREATE)
                     .anyRequest().denyAll()  //Nega qualquer outra requisição.
             }
             .oauth2ResourceServer { oauth ->  //Configura o recurso de autenticação com OAuth2 usando JWT:
